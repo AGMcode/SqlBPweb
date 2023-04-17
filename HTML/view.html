@@ -1,0 +1,107 @@
+<head>
+    <title>SqlBP: View</title>
+</head>
+<div id="header-placeholder"></div>
+    <script src="../JS/load_HeaderFooter.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        
+    <!-- include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- send AJAX request to PHP script -->
+    <script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "../PHP/get_database.php",
+            type: "POST",
+            success: function(response) {
+                $('.db-list').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+    $(document).ready(function() {
+        $.ajax({
+            url: "../PHP/get_tables.php",
+            type: "POST",
+            success: function(response) {
+                $('.tables-list').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+    $(document).ready(function() {
+        $.ajax({
+            url: "../PHP/get_content.php",
+            type: "POST",
+            success: function(response) {
+                $('.content').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+    </script>
+</div>
+
+<body>
+    <div class="container">
+   <!-- <div class="sidebar db-list"></div> -->!
+    <div class="sidebar tables-list"></div>
+    <main class="main-content">   
+        <div class="tab">
+            <div class="scrollable-tabs-container">
+                <!--LEFT ARROW-->
+                <div class="left-arrow"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg></div>
+          
+                <ul>
+                  <li>
+                    <a href="#" class="active">All</a>
+                  </li>
+          
+                  <li>
+                    <a href="#">Music</a>
+                  </li>
+          
+                  <li>
+                    <a href="#">Chess</a>
+                  </li>
+          
+                  <li>
+                    <a href="#">Live</a>
+                  </li>
+          
+                  <li>
+                    <a href="#">Gaming</a>
+                  </li>
+          
+                  <li>
+                    <a href="#">Editing</a>
+                  </li>
+          
+
+                </ul>
+                <!--RIGTH ARROW-->
+                <div class="right-arrow active"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg></div>
+              </div>
+              <div class="content"></div>
+              <script src="../JS/scroll_tabs.js"></script>
+        </div>
+    </main>
+</div>
+    <script>
+        $('.tab').click(function () {
+            $('.tab').removeClass('active');
+            $(this).addClass('active');
+        });
+    </script>
+
+</body>
+<div id="footer-placeholder"></div>
