@@ -30,30 +30,21 @@
     
     // Display the content found from query
     if ($result->num_rows > 0) {
-    // Output the table header dynamically
-    echo "<div id=\"table-list\"><table><tr>";
-    while ($column = $result->fetch_field()) {
-        echo "<th>" . $column->name . "</th>";
-    }
-    echo "</tr>";
-    
-    // Output the table rows dynamically
-    while ($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        foreach ($row as $value) {
-            if ($selected_table == null) {
-                echo "<td><a href=\"?database=$selected_database&table=$value\">$value</a></td>";
-            } else if ($selected_table == $value) {
-                echo "<td>$value</td>";
-            } else {
-                echo "<td><a href=\"?database=$selected_database&table=$value\">$value</a></td>";
+        echo "Tables:<ul><li><a href=\"\" class=\"active\">All</a></li>";
+        while ($row = $result->fetch_assoc()) {
+            foreach ($row as $value) {
+                if ($selected_table == null) {
+                    echo "<li><a href=\"?database=$selected_database&table=$value\">$value</a></li>";
+                } else if ($selected_table == $value) {
+                    echo "<li><strong>$value</strong></li>";
+                } else {
+                    echo "<li><a href=\"?database=$selected_database&table=$value\">$value</a></li>";
+                }
             }
         }
-        echo "</tr>";
-    }
-        echo "</table></div>";
+        echo "</ul>";
     } else {
         echo "0 results";
     }
     $conn->close();
-    ?>
+?>
