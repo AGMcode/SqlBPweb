@@ -37,17 +37,25 @@
         });
     });
     $(document).ready(function() {
-        $.ajax({
-            url: "../PHP/get_content.php",
-            type: "POST",
-            success: function(response) {
-                $('.content').html(response);
-            },
-            error: function(xhr, status, error) {
-                console.log(xhr.responseText);
-            }
-        });
+    // Parse the URL to get the parameter values
+    var params = new URLSearchParams(window.location.search);
+    var database = params.get('database');
+    var table = params.get('table');
+
+    // Send the AJAX request with the parameters
+    $.ajax({
+        url: "../PHP/get_content.php",
+        type: "GET",
+        data: { database: database, table: table },
+        success: function(response) {
+            $('.content').html(response);
+        },
+        error: function(xhr, status, error) {
+            console.log(xhr.responseText);
+        }
     });
+});
+
     </script>
 </div>
 

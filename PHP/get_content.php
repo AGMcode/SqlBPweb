@@ -13,10 +13,14 @@ if ($conn->connect_error) {
 $selected_database = $_GET["database"];
 $selected_table = $_GET["table"];
 
-print_r($_GET["table"]);
-
 // Build the SQL query
-$sql = "SELECT * FROM table2$selected_table";
+if (empty($selected_table)) {
+    // Show all tables in the selected database
+    $sql = "SHOW TABLES";
+} else {
+    // Show the selected table
+    $sql = "SELECT * FROM $selected_table";
+}
 
 // Execute the SQL query
 $result = mysqli_query($conn, $sql);
