@@ -27,10 +27,10 @@ if (isset($_GET['table'])) {
 // Retrieve and display table names for the selected database
 $sql = "SHOW TABLES IN $selected_database";
 $result = $conn->query($sql);
-
+$all = "All";
 // Display the content found from query
 if ($result->num_rows > 0) {
-    echo "Tables:<ul><li><a href=\"\" class=\"active\">All</a></li>";
+    echo "Tables:<ul><li><a href=\"?database=$selected_database&table=\">$all</a></li>";
     while ($row = $result->fetch_assoc()) {
         foreach ($row as $value) {
             if ($selected_table == null) {
