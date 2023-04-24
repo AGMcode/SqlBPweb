@@ -30,6 +30,7 @@ echo "<table>";
 echo "<thead><tr>";
 while ($fieldinfo = mysqli_fetch_field($result)) {
     echo "<th>".$fieldinfo->name."</th>";
+    echo "<td><input type='checkbox' name='selected_columns[]' value='".$fieldinfo->name."'></td>";
 }
 echo "</tr></thead>";
 
@@ -46,4 +47,10 @@ echo "</tbody>";
 
 // Close the table
 echo "</table>";
+
+// Pass the selected columns to the Select statement builder
+if (!empty($_POST["selected_columns"])) {
+    $selected_columns = $_POST["selected_columns"];
+    // Pass $selected_columns to the SQL Select statement builder
+}
 ?>

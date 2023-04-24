@@ -209,6 +209,7 @@ input {
 }
 
 .main-content h1 {
+  width: 100%;
   font-size: 32px;
 }
 
