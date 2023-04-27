@@ -5,8 +5,6 @@ include_once "header.php";
 <head>
     <title>SqlBP: Dashboard</title>
 </head>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- send AJAX request to PHP script -->
 
 <body>
     <main class="main-content">
@@ -16,10 +14,17 @@ include_once "header.php";
             ?>
         </nav>
         
-        <div class="content"></div>
-        <?php
+        <div class="content"> 
+            <?php
             include_once "get_tableContent.php";
             ?>
+        </div>   
+
+      <!--  <div class="builder">
+            <?php
+            include_once "builder.php";
+            ?>
+        </div> -->
     </main>
 </body>
 
