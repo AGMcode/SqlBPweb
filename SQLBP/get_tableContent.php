@@ -51,14 +51,12 @@ echo "</tbody>";
 // Close the table
 echo "</table>";
 
-// Pass the selected columns to the Select statement builder
+// MISSING, pass the collums selected from checbox and echo all the selections into a string
 if (!empty($_POST["selected_columns"])) {
-    $selected_columns = $_POST["selected_columns"];
-    $selected_columns_str = implode(", ", $selected_columns);
-    // Modify the SQL query to include only the selected columns
-    $sql = "SELECT $selected_columns_str FROM $selected_table";
-    // Execute the modified SQL query
-    $result = mysqli_query($conn, $sql);
-    // ... do something with the modified query results ...
+    $selected_columns = implode(",", $_POST["selected_columns"]);
+    $sql = "SELECT $selected_columns FROM $selected_table";
+    // Pass $sql to the SQL Select statement builder
+    echo "Selected Columns: " . $selected_columns;
 }
+
 ?>
