@@ -18,10 +18,6 @@ $selected_database = $_GET["database"];
 $selected_table = $_GET["table"];
 
 // Build the SQL query
-if (empty($selected_database)) {
-    // Show all tables in the selected database
-    $sql = "SHOW TABLES";
-} else
 if (empty($selected_table)) {
     // Show all tables in the selected database
     $sql = "SHOW TABLES";
@@ -37,10 +33,17 @@ $result = mysqli_query($conn, $sql);
 echo "<form method='POST'>";
 echo "<table>";
 echo "<thead><tr>";
-while ($fieldinfo = mysqli_fetch_field($result)) {
-    echo "<th>".$fieldinfo->name."<input type='checkbox' name='selected_columns[]' value='".$fieldinfo->name."'></th>";
+if ($selected_table != null) {
+    while ($fieldinfo = mysqli_fetch_field($result)) {
+        $isChecked = in_array($fieldinfo->name, $_POST['selected_columns'] ?? []);
+        echo "<th>" . $fieldinfo->name . "<input type='checkbox' name='selected_columns[]' value='" . $fieldinfo->name . "'" . ($isChecked ? 'checked' : '') . "></th>";
+    }
+} else {
+    $fieldinfo = mysqli_fetch_field($result);
+    echo "<th>" . $fieldinfo->name . "</th>";
 }
 echo "</tr></thead>";
+
 
 // Generate the table content
 echo "<tbody>";
@@ -55,14 +58,11 @@ echo "</tbody>";
 
 // Close the table and form
 echo "</table>";
-echo "<input type='submit' value='Submit'>";
+echo "<input type='submit' value='Select'>";
 echo "</form>";
 
 // Check if any columns were selected
 if(isset($_POST['selected_columns'])) {
-    // Loop through the selected columns and echo their names
-    echo "<h2>You selected the following columns: </h2>";
- 
     $selectParams = array(
         'columns' => $_POST['selected_columns'],
         'from' => $selected_table,
@@ -76,41 +76,37 @@ if(isset($_POST['selected_columns'])) {
       $sql = 'SELECT ';
   
       if(!empty($selectParams['columns'])) {
-          $sql .= implode(',', $selectParams['columns']);
+          $sql .= implode(', ', $selectParams['columns']);
       } else {
           $sql .= '*';
       }
   
-      $sql .= ' FROM '.$selectParams['from'];
+      $sql .= '
+    FROM '.$selectParams['from'];
   
       if(!empty($selectParams['where'])) {
-          $sql .= ' WHERE '.$selectParams['where'];
+          $sql .= ' 
+    WHERE '.$selectParams['where'];
       }
   
       if(!empty($selectParams['groupby'])) {
-          $sql .= ' GROUP BY '.$selectParams['groupby'];
+          $sql .= ' 
+    GROUP BY '.$selectParams['groupby'];
       }
   
       if(!empty($selectParams['having'])) {
-          $sql .= ' HAVING '.$selectParams['having'];
+          $sql .= ' 
+    HAVING '.$selectParams['having'];
       }
   
       if(!empty($selectParams['orderby'])) {
-          $sql .= ' ORDER BY '.$selectParams['orderby'];
+          $sql .= ' 
+    ORDER BY '.$selectParams['orderby'];
       }
   
       if(!empty($selectParams['limit'])) {
-          $sql .= ' LIMIT '.$selectParams['limit'];
-      }
-  
-      // Display the SQL statement
-
-      echo"<textarea id='sql-query-builder' name='sql-query-builder' cols='100' rows='10'>";
-      echo $sql;
-      echo "</textarea>";
-      echo "<script src='save_query_builder.js'></script>";
-      
-  }
-  
-  
-  ?>
+          $sql .= ' 
+    LIMIT '.$selectParams['limit'];
+      } 
+  } 
+?>

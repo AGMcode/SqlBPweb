@@ -20,11 +20,11 @@ include_once "header.php";
             ?>
         </div>   
 
-      <!--  <div class="builder">
+        <div class="builder">
             <?php
             include_once "builder.php";
             ?>
-        </div> -->
+        </div>
     </main>
 </body>
 
