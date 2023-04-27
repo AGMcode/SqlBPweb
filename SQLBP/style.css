@@ -113,3 +113,16 @@ td,th {
 
 }
 
+/* Side by side*/
+.parent {
+    border: 1px solid #000000;
+    margin: 1px;
+    padding: 1px 1px;
+    text-align: center;
+  }
+  .child {
+    display: inline-block;
+    border: 1px solid #2c3e50;
+    padding: 1px 1px;
+    vertical-align: top;
+  }
