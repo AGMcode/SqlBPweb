@@ -16,7 +16,7 @@ include_once "header.php";
         
         // Send the AJAX request with the parameters
         $.ajax({
-            url: "../PHP/get_content.php",
+            url: "get_tableContent.php",
             type: "GET",
             data: {
                 database: database,
@@ -34,9 +34,12 @@ include_once "header.php";
 
 <body>
     <main class="main-content">
-        <?php
-        include_once "../PHP/get_tables.php";
-        ?>
+        <nav>
+            <?php
+            include_once "get_tablesList.php";
+            ?>
+        </nav>
+        
         <div class="content"></div>
     </main>
 </body>
