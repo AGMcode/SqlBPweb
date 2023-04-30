@@ -1,5 +1,5 @@
 <?php
-
+    session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,12 +12,17 @@
     <nav>
         <ul>
             <li><a href="index.php">Home</a></li>
-            <li><a href="dashboard.php">Dashboard</a></li>   
-            <li><a href="connect_db.php">ConnectDB</a></li>    
-            
-            <li><a href="Register.php">Register</a></li>
-            <li><a href="login.php">Login</a></li>
-            <li><a href="logout.php">Logout</a></li>   
+            <?php 
+                if (isset($_SESSION["usersId"])) {
+                    echo "<li><a href='logout.php'>Logout</a></li>";
+                    echo "<li><a href='dashboard.php'>Dashboard</a></li>";   
+                    echo "<li><a href='connect_db.php'>ConnectDB</a></li>";
+                    echo "<li><a href='logout.php'>Logout</a></li>";
+                }else {
+                    echo "<li><a href='Register.php'>Register</a></li>";
+                    echo "<li><a href='login.php'>Login</a></li>";
+                }
+            ?>
         </ul>
     </nav>
 </header>

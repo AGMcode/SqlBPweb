@@ -18,3 +18,11 @@ Export options: This module should allow users to export the data they retrieve 
 Reporting module: This module would allow users to create reports and dashboards based on their query results. It should provide a variety of visualization options and allow users to customize their reports according to their needs.
 Help and support: This module would provide users with help and support, including documentation, FAQs, and contact information.
 Collaboration module: This module would allow multiple users to collaborate on a project simultaneously. Users should be able to work on the same project, see each other's changes in real-time, and communicate with each other through chat or other collaboration tools.
+
+
+min connections with web sockets... LOOOK INTO THAT
+SQL for users database
+cache system for temp data > redis > caching system.
+maybe NODE.JS backend server > lookinto it
+
+ 
