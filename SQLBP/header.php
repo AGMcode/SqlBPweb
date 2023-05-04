@@ -13,10 +13,10 @@
         <ul>
             <li><a href="index.php">Home</a></li>
             <?php 
-                if (isset($_SESSION["usersId"])) {
-                    echo "<li><a href='logout.php'>Logout</a></li>";
-                    echo "<li><a href='dashboard.php'>Dashboard</a></li>";   
+                if (isset($_SESSION["userid"])) {
+                    echo "<li><a href='dashboard.php'>Dashboard</a></li>";
                     echo "<li><a href='connect_db.php'>ConnectDB</a></li>";
+                    echo "<li><a href='userarea.php'>".$_SESSION["username"]."</a></li>";      
                     echo "<li><a href='logout.php'>Logout</a></li>";
                 }else {
                     echo "<li><a href='Register.php'>Register</a></li>";

@@ -66,7 +66,7 @@ function createUser($conn, $username, $email, $password) {
         header("location: register.php?error=createuserstmtfailed");
         exit();
     }
-
+    
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     mysqli_stmt_bind_param($stmt, "sss",  $username, $email, $hashedPassword);
@@ -88,7 +88,7 @@ function loginUser($conn, $username, $password){
     $userExists = userExists($conn, $username, $username);
 
     if ($userExists === false) {
-        header("location: login.php?error=wronglogin"); 
+        header("location: login.php?error=wronglogin");
         exit();
     }
 
@@ -96,15 +96,16 @@ function loginUser($conn, $username, $password){
     $checkPassword = password_verify($password, $hashedPassword);
 
     if ($checkPassword === false) {
-        header("location: login.php?error=wronglogin"); 
+        header("location: login.php?error=wrongpassword");
         exit();
     }
     else if ($checkPassword === true) {
         session_start();
-        $_SESSION["usersId"] = $userExists["usersId"];
-        $_SESSION["usersUsername"] = $userExists["usersUsername"];
-        header("location: dashboard.php"); 
+        $_SESSION["userid"] = $userExists["usersId"];
+        $_SESSION["username"] = $userExists["usersUsername"];
+        header("location: dashboard.php");
         exit();
     }
 }
+
 ?>

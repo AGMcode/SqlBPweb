@@ -30,7 +30,7 @@ if (isset($_POST["submit"])) {
         exit();
     }
     else{
-    createUser($conn, $username, $email, $username, $password);
+    createUser($conn, $username, $email, $password);
     header("location: register.php?error=none");
 }
 }

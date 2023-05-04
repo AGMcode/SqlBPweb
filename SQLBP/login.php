@@ -8,8 +8,8 @@ include_once "header.php";
     <main>
         <form action="login.inc.php" method="post">
             <h2>Login</h2>
-            <label for="usersId">Email:</label>         <input type="text" id="usersId" name="usersId" required>
-            <label for="usersPassword">Password:</label>     <input type="password" id="usersPassword" name="usersPassword" required>
+            <label for="username">Email:</label>         <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>     <input type="password" id="password" name="password" required>
             <button id="button_green" type="submit" name="submit">Login</button>
         </form>
         <?php 
@@ -21,7 +21,7 @@ include_once "header.php";
             echo "<p>Incorrect Login!</p>";
            }
            else{
-            
+
            }
         }
         ?>
