@@ -75,6 +75,19 @@ function createUser($conn, $username, $email, $password) {
     header("location: resgister.php?error=none");
 }
 
+function createDbConnection($conn, $usernamedb, $serveripdb, $namedb, $passworddb ) {
+    $sql = "INSERT INTO usersdbconnections (usernamedb, serveripdb, namedb, passworddb) VALUES (?, ?, ?, ?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: connect_db.php?error=createuserstmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "sss",  $username, $email, $hashedPassword);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    header("location: connect_db.php?error=none");
+}
+
 function emptyInputLogin($username, $password)  {
     if(empty($username) || empty($password)){
         $result = true;

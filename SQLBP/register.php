@@ -4,7 +4,6 @@ include_once "header.php";
 <head>
     <title>SqlBP: Register</title>
 </head>
-
 <body>
     <main>
         <form action="register.inc.php" method="post">

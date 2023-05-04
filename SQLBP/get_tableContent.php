@@ -17,14 +17,20 @@ error_reporting(E_ERROR);
 $selected_database = $_GET["database"];
 $selected_table = $_GET["table"];
 
-// Build the SQL query
-if (empty($selected_table)) {
-    // Show all tables in the selected database
-    $sql = "SHOW TABLES";
-} else {
-    // Show the selected table
-    $sql = "SELECT * FROM $selected_table";
-}
+// Check if there is an existing SQL statement in the textarea
+if (isset($_POST['sql_statement'])) {
+    $sql = $_POST['sql_statement'];
+  } else {
+    // Build the SQL query based on the selected database and table
+    if (empty($selected_table)) {
+        // Show all tables in the selected database
+        $sql = "SHOW TABLES";
+    } else {
+        // Show the selected table
+        $sql = "SELECT * FROM $selected_table";
+    }
+  }
+  
 
 // Execute the SQL query
 $result = mysqli_query($conn, $sql);
@@ -58,8 +64,7 @@ echo "</tbody>";
 
 // Close the table and form
 echo "</table>";
-echo "<input type='submit' value='Select'>";
-echo "</form>";
+
 
 // Check if any columns were selected
 if(isset($_POST['selected_columns'])) {
@@ -71,42 +76,34 @@ if(isset($_POST['selected_columns'])) {
         'having' => $having,
         'orderby' => $order_by,
         'limit' => $limit
-      );
-  
-      $sql = 'SELECT ';
-  
-      if(!empty($selectParams['columns'])) {
-          $sql .= implode(', ', $selectParams['columns']);
-      } else {
-          $sql .= '*';
-      }
-  
-      $sql .= '
-    FROM '.$selectParams['from'];
-  
-      if(!empty($selectParams['where'])) {
-          $sql .= ' 
-    WHERE '.$selectParams['where'];
-      }
-  
-      if(!empty($selectParams['groupby'])) {
-          $sql .= ' 
-    GROUP BY '.$selectParams['groupby'];
-      }
-  
-      if(!empty($selectParams['having'])) {
-          $sql .= ' 
-    HAVING '.$selectParams['having'];
-      }
-  
-      if(!empty($selectParams['orderby'])) {
-          $sql .= ' 
-    ORDER BY '.$selectParams['orderby'];
-      }
-  
-      if(!empty($selectParams['limit'])) {
-          $sql .= ' 
-    LIMIT '.$selectParams['limit'];
-      } 
-  } 
+    );
+
+    // Update the existing SQL statement with the selected columns
+    $sql = str_replace("*", implode(", ", $selectParams['columns']), $sql);
+
+    // Update the existing SQL statement with the WHERE clause
+    if (!empty($selectParams['where'])) {
+        $sql = preg_replace("/WHERE (.*)/", "WHERE " . $selectParams['where'], $sql);
+    }
+
+    // Update the existing SQL statement with the GROUP BY clause
+    if (!empty($selectParams['groupby'])) {
+        $sql = preg_replace("/GROUP BY (.*)/", "GROUP BY " . $selectParams['groupby'], $sql);
+    }
+
+    // Update the existing SQL statement with the HAVING clause
+    if (!empty($selectParams['having'])) {
+        $sql = preg_replace("/HAVING (.*)/", "HAVING " . $selectParams['having'], $sql);
+    }
+
+    // Update the existing SQL statement with the ORDER BY clause
+    if (!empty($selectParams['orderby'])) {
+        $sql = preg_replace("/ORDER BY (.*)/", "ORDER BY " . $selectParams['orderby'], $sql);
+    }
+
+    // Update the existing SQL statement with the LIMIT clause
+    if (!empty($selectParams['limit'])) {
+        $sql = preg_replace("/LIMIT (.*)/", "LIMIT " . $selectParams['limit'], $sql);
+    }
+}
 ?>
